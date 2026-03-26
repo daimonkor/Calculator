@@ -11,7 +11,6 @@ export const Navigator = () => {
   return (
     <NavigationContainer>
       <CustomDrawer.Navigator
-        initialRouteName={'Calculator'}
         screenOptions={{
           headerShown: false,
         }}
