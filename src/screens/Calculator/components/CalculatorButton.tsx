@@ -52,7 +52,7 @@ export const CalculatorButton: FC<ICalculatorButtonProps> = ({
         <Svg
           height={size.height - 1}
           width={size.width - 1}
-          style={[StyleSheet.absoluteFill, { zIndex: -1 }]}
+          style={StyleSheet.absoluteFill}
         >
           <Defs>
             <RadialGradient
