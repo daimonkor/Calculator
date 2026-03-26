@@ -100,12 +100,15 @@ export const Calculator = () => {
     operand: Operand;
     value: string | null | undefined | number;
   }>({ operand: Operand.NONE, value: '' });
+  const isNaN = (v: string) => v.toLowerCase() === 'nan';
   const handlePress = useCallback(
     (operand: Operand, value?: string | number) => () => {
       switch (operand) {
         case Operand.DIGITAL:
           setDisplayText(oldValue => {
-            return `${oldValue === '0' ? '' : oldValue}${value}`;
+            return `${
+              oldValue === '0' || isNaN(oldValue) ? '' : oldValue
+            }${value}`;
           });
           break;
         case Operand.MULTIPLE:
@@ -113,6 +116,7 @@ export const Calculator = () => {
         case Operand.MINUS:
         case Operand.PLUS:
           setDisplayText(oldValue => {
+            if (isNaN(oldValue)) return '0';
             if (
               [
                 Operand.MULTIPLE,
@@ -121,12 +125,13 @@ export const Calculator = () => {
                 Operand.PLUS,
               ].includes(lastToken.operand)
             )
-              return oldValue;
-            return `${oldValue === '0' ? '' : oldValue}${value}`;
+              return oldValue?.replace(lastToken.value, value);
+            return oldValue === '0' ? '' : `${oldValue}${value}`;
           });
           break;
         case Operand.PERCENT:
           setDisplayText(oldValue => {
+            if (isNaN(oldValue)) return '0';
             const lastNumberMatch = oldValue.match(/(\d+[.]?\d*)$/);
             if (!lastNumberMatch) {
               return oldValue;
@@ -139,6 +144,7 @@ export const Calculator = () => {
           break;
         case Operand.EQUAL:
           setDisplayText(oldValue => {
+            if (isNaN(oldValue)) return '0';
             let result = oldValue;
             const tailRegex = /[+\-*/%.\s]+$/;
             result = result.replace(tailRegex, '');
@@ -153,11 +159,13 @@ export const Calculator = () => {
           break;
         case Operand.DOT:
           setDisplayText(oldValue => {
+            if (isNaN(oldValue)) return '0';
             return canAddDot(oldValue) ? `${oldValue}${value}` : oldValue;
           });
           break;
         case Operand.PLUS_AND_MINUS:
           setDisplayText(oldValue => {
+            if (isNaN(oldValue) || oldValue === '0') return '0';
             const match = oldValue.match(/([0-9.]+)$/);
             if (!match) return oldValue;
             const numberIndex = match.index;
@@ -182,6 +190,7 @@ export const Calculator = () => {
           break;
         case Operand.CLEAN:
           setDisplayText(oldValue => {
+            if (isNaN(oldValue)) return '0';
             const newValue = oldValue.slice(0, -1);
             if (operatorChars.includes(newValue)) {
               return '0';

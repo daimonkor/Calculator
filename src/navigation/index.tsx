@@ -1,16 +1,15 @@
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import { NavigationContainer } from '@react-navigation/native';
+import SplashScreen from 'react-native-splash-screen';
 import { Issues } from '../screens/Issues';
 import { Calculator } from '../screens/Calculator';
-import { Header } from '../components';
-import { wrapCustomFont } from '../utils';
 import { colors } from '../theme/colors.ts';
 
 export const CustomDrawer = createDrawerNavigator();
 
 export const Navigator = () => {
   return (
-    <NavigationContainer>
+    <NavigationContainer onReady={SplashScreen.hide}>
       <CustomDrawer.Navigator
         screenOptions={{
           headerShown: false,

@@ -1,28 +1,37 @@
-import { FC } from 'react';
-import { View } from 'react-native';
+import { useCallback, useMemo } from 'react';
+import { StyleSheet, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { Icon } from 'react-native-elements';
-import { useNavigation } from '@react-navigation/core';
+import { useNavigation, DrawerActions } from '@react-navigation/native';
 import { colors } from '../../theme/colors.ts';
 
 export const Header = () => {
   const navigation = useNavigation();
   const insets = useSafeAreaInsets();
+  const containerStyle = useMemo(
+    () => StyleSheet.flatten([styles.container, { marginTop: insets.top }]),
+    [insets.top],
+  );
+  const onPress = useCallback(
+    () => navigation.dispatch(DrawerActions.toggleDrawer()),
+    [navigation],
+  );
   return (
-    <View
-      style={{
-        marginTop: insets.top,
-        alignItems: 'flex-start',
-        paddingLeft: 10,
-      }}
-    >
+    <View style={containerStyle}>
       <Icon
         name="menu"
         size={30}
-        onPress={navigation?.toggleDrawer}
+        onPress={onPress}
         type={'ionicon'}
         color={colors.white}
       />
     </View>
   );
 };
+
+const styles = StyleSheet.create({
+  container: {
+    alignItems: 'flex-start',
+    paddingLeft: 10,
+  },
+});
