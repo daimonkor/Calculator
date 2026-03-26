@@ -62,30 +62,32 @@ var arr = [
 ];
 
 function mutateArray(a) {
-  return a.reduce((accumulator, current) => {
-    const newCurrent = Object.entries(current)
-      ?.map(item => {
-        if (typeof item[1] === 'object') {
-          return item?.[1];
-        }
-        return { [item?.[0]]: item[1] };
-      })
-      ?.reduce((accumulator2, current2) => {
-        const totalSomeArray =
-          current2?.some_array?.reduce(
-            (accumulator3, current3) => accumulator3 + current3,
-            0,
-          ) ?? -1;
-        return {
-          ...accumulator2,
-          ...current2,
-          ...(totalSomeArray >= 0
-            ? { some_total: totalSomeArray, some_array: undefined }
-            : {}),
-        };
-      }, {});
-    return [...accumulator, newCurrent];
-  }, []);
+  return a
+    .reduce((accumulator, current) => {
+      const newCurrent = Object.entries(current)
+        ?.map(item => {
+          if (typeof item[1] === 'object') {
+            return item?.[1];
+          }
+          return { [item?.[0]]: item[1] };
+        })
+        ?.reduce((accumulator2, current2) => {
+          const totalSomeArray =
+            current2?.some_array?.reduce(
+              (accumulator3, current3) => accumulator3 + current3,
+              0,
+            ) ?? -1;
+          return {
+            ...accumulator2,
+            ...current2,
+            ...(totalSomeArray >= 0
+              ? { some_total: totalSomeArray, some_array: undefined }
+              : {}),
+          };
+        }, {});
+      return [...accumulator, newCurrent];
+    }, [])
+    ?.filter(item => item?.guest_type === 'guest');
 }
 
 export const Issues = () => {
