@@ -1,5 +1,6 @@
-import { FC, useMemo } from 'react';
+import { FC, useCallback, useMemo, useState } from 'react';
 import {
+  LayoutChangeEvent,
   StyleSheet,
   TextStyle,
   TouchableOpacity,
@@ -8,12 +9,15 @@ import {
 import { Text } from '../../../components';
 import { wrapCustomFont } from '../../../utils';
 import { colors } from '../../../theme/colors.ts';
+import Svg, { Defs, RadialGradient, Rect, Stop } from 'react-native-svg';
 
 interface ICalculatorButtonProps {
   label: string;
   textStyle?: TextStyle;
   onPress?: () => void;
   containerStyle?: ViewStyle;
+  gradientColorCenter?: string;
+  gradientColorEdge?: string;
 }
 
 export const CalculatorButton: FC<ICalculatorButtonProps> = ({
@@ -21,7 +25,14 @@ export const CalculatorButton: FC<ICalculatorButtonProps> = ({
   textStyle,
   onPress,
   containerStyle,
+  gradientColorCenter = '#C4C5C6',
+  gradientColorEdge = '#C2C3C5',
 }) => {
+  const [size, setSize] = useState({ width: 0, height: 0 });
+  const onLayout = useCallback((e: LayoutChangeEvent) => {
+    const { width, height } = e.nativeEvent.layout;
+    setSize({ width, height });
+  }, []);
   const textStyleMod = useMemo(
     () => wrapCustomFont([styles.buttonText, textStyle]),
     [textStyle],
@@ -32,10 +43,45 @@ export const CalculatorButton: FC<ICalculatorButtonProps> = ({
   );
   return (
     <TouchableOpacity
-      activeOpacity={0.6}
+      activeOpacity={0.7}
       onPress={onPress}
+      onLayout={onLayout}
       style={containerStyleMod}
     >
+      {size.width > 0 && size.height > 0 && (
+        <Svg
+          height={size.height - 1}
+          width={size.width - 1}
+          style={[StyleSheet.absoluteFill, { zIndex: -1 }]}
+        >
+          <Defs>
+            <RadialGradient
+              id="grad"
+              cx={size.width / 2}
+              cy={size.height * 0.4}
+              rx={size.width * 0.7}
+              ry={size.height * 0.7}
+              fx={size.width / 2}
+              fy={size.height * 0.4}
+              gradientUnits="userSpaceOnUse"
+            >
+              <Stop
+                offset="0"
+                stopColor={gradientColorCenter}
+                stopOpacity="1"
+              />
+              <Stop offset="1" stopColor={gradientColorEdge} stopOpacity="1" />
+            </RadialGradient>
+          </Defs>
+          <Rect
+            x="0"
+            y="0"
+            width={size.width - 1}
+            height={size.height - 1}
+            fill="url(#grad)"
+          />
+        </Svg>
+      )}
       <Text style={textStyleMod}>{label}</Text>
     </TouchableOpacity>
   );
@@ -46,10 +92,10 @@ const styles = StyleSheet.create({
     height: '100%',
     alignItems: 'center',
     justifyContent: 'center',
-    borderBottomWidth: 0.5,
-    borderRightWidth: 0.5,
+    borderBottomWidth: 1,
+    borderRightWidth: 1,
     borderColor: colors.calculatorBorder,
     flex: 1,
   },
-  buttonText: { fontSize: 42, fontWeight: '200', fontFamily: 'System' },
+  buttonText: { fontSize: 42, fontWeight: '100' },
 });

@@ -16,7 +16,7 @@ export const Text = forwardRef<
 
 const styles = StyleSheet.create({
   text: {
-    fontFamily: 'Arimo',
+    fontFamily: 'Roboto',
     fontWeight: '400',
     color: colors.black,
     textAlign: 'left',

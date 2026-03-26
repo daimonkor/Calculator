@@ -137,6 +137,6 @@ class FontManager {
 }
 
 const fontManager = new FontManager();
-fontManager.init('Arimo');
+fontManager.init('Roboto');
 
 export const wrapCustomFont = fontManager.override.bind(fontManager);

@@ -1,32 +1,6 @@
-import { TextStyle, ViewStyle } from 'react-native';
-
 export * from './CalculatorButton.tsx';
-
-export enum Operand {
-  DIGITAL,
-  PLUS,
-  MINUS,
-  DIVIDE,
-  MULTIPLE,
-  PERCENT,
-  CLEAN,
-  EQUAL,
-  DOT,
-  NONE,
-  PLUS_AND_MINUS,
-}
-
-export type Key = {
-  label: string;
-  containerStyle?: ViewStyle;
-  value?: string;
-  onPress?: (
-    callback: (operand: Operand, value?: string | number) => void,
-  ) => () => void;
-  id: string;
-  textStyle?: TextStyle;
-  operand: Operand;
-};
+export * from './types';
+import { Operand } from './types';
 
 export const mathOperation = [
   { operand: Operand.MINUS, value: '-', mathOperationSymbol: '-' },

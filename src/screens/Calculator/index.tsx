@@ -10,165 +10,60 @@ import {
   operatorChars,
   trailingOperatorRegex,
 } from './components';
-import { wrapCustomFont } from '../../utils';
+import { evaluateExpression, fixPrecision, wrapCustomFont } from '../../utils';
 import { colors } from '../../theme/colors.ts';
+
+const digit = (n: number): Key => ({
+  label: String(n),
+  id: String(n),
+  value: n,
+  operand: Operand.DIGITAL,
+});
+
+const orangeStyle: Partial<Key> = {
+  containerStyle: { backgroundColor: colors.calculatorOrange },
+  gradientColorCenter: colors.calculatorOrangeGradientCenter,
+  gradientColorEdge: colors.calculatorOrangeGradientEdge,
+};
+
+const operator = (label: string, operand: Operand, fontSize: number): Key => ({
+  label,
+  id: label,
+  value: label,
+  operand,
+  textStyle: { color: colors.white, fontSize },
+  ...orangeStyle,
+});
 
 const data: Array<Array<Key>> = [
   [
     {
       label: 'AC',
-      onPress: callback => () => {
-        callback?.(Operand.CLEAN);
-      },
       id: 'AC',
-      textStyle: { fontSize: 35 },
       operand: Operand.CLEAN,
+      textStyle: { fontSize: 35 },
     },
     {
-      label: '±',
-      onPress: callback => () => {
-        callback?.(Operand.PLUS_AND_MINUS);
-      },
+      label: '+/-',
       id: '+/-',
-      textStyle: { fontSize: 50 },
       operand: Operand.PLUS_AND_MINUS,
+      textStyle: { fontSize: 35 },
     },
     {
       label: '%',
-      onPress: callback => () => {
-        callback?.(Operand.PERCENT, '%');
-      },
       id: '%',
-      textStyle: { fontSize: 35 },
+      value: '%',
       operand: Operand.PERCENT,
+      textStyle: { fontSize: 35 },
     },
-    {
-      label: '÷',
-      onPress: callback => () => {
-        callback?.(Operand.DIVIDE, '÷');
-      },
-      id: '÷',
-      textStyle: { color: colors.white, fontSize: 60 },
-      containerStyle: { backgroundColor: colors.calculatorOrange },
-      operand: Operand.DIVIDE,
-    },
+    operator('÷', Operand.DIVIDE, 60),
   ],
+  [digit(7), digit(8), digit(9), operator('×', Operand.MULTIPLE, 55)],
+  [digit(4), digit(5), digit(6), operator('-', Operand.MINUS, 75)],
+  [digit(1), digit(2), digit(3), operator('+', Operand.PLUS, 65)],
   [
     {
-      label: '7',
-      onPress: callback => () => {
-        callback?.(Operand.DIGITAL, 7);
-      },
-      id: '7',
-      operand: Operand.DIGITAL,
-    },
-    {
-      label: '8',
-      onPress: callback => () => {
-        callback?.(Operand.DIGITAL, 8);
-      },
-      id: '8',
-      operand: Operand.DIGITAL,
-    },
-    {
-      label: '9',
-      onPress: callback => () => {
-        callback?.(Operand.DIGITAL, 9);
-      },
-      id: '9',
-      operand: Operand.DIGITAL,
-    },
-    {
-      label: '×',
-      onPress: callback => () => {
-        callback?.(Operand.MULTIPLE, '×');
-      },
-      id: '×',
-      textStyle: { color: colors.white, fontSize: 55 },
-      containerStyle: { backgroundColor: colors.calculatorOrange },
-      operand: Operand.MULTIPLE,
-    },
-  ],
-  [
-    {
-      label: '4',
-      onPress: callback => () => {
-        callback?.(Operand.DIGITAL, 4);
-      },
-      id: '4',
-      operand: Operand.DIGITAL,
-    },
-    {
-      label: '5',
-      onPress: callback => () => {
-        callback?.(Operand.DIGITAL, 5);
-      },
-      id: '5',
-      operand: Operand.DIGITAL,
-    },
-    {
-      label: '6',
-      onPress: callback => () => {
-        callback?.(Operand.DIGITAL, 6);
-      },
-      id: '6',
-      operand: Operand.DIGITAL,
-    },
-    {
-      label: '-',
-      onPress: callback => () => {
-        callback?.(Operand.MINUS, '-');
-      },
-      id: '-',
-      textStyle: { color: colors.white, fontSize: 75 },
-      containerStyle: { backgroundColor: colors.calculatorOrange },
-      operand: Operand.MINUS,
-    },
-  ],
-  [
-    {
-      label: '1',
-      onPress: callback => () => {
-        callback?.(Operand.DIGITAL, 1);
-      },
-      id: '1',
-      operand: Operand.DIGITAL,
-    },
-    {
-      label: '2',
-      onPress: callback => () => {
-        callback?.(Operand.DIGITAL, 2);
-      },
-      id: '2',
-      operand: Operand.DIGITAL,
-    },
-    {
-      label: '3',
-      onPress: callback => () => {
-        callback?.(Operand.DIGITAL, 3);
-      },
-      id: '3',
-      operand: Operand.DIGITAL,
-    },
-    {
-      label: '+',
-      onPress: callback => () => {
-        callback?.(Operand.PLUS, '+');
-      },
-      id: '+',
-      textStyle: { color: colors.white, fontSize: 65 },
-      containerStyle: { backgroundColor: colors.calculatorOrange },
-      operand: Operand.PLUS,
-    },
-  ],
-  [
-    {
-      label: '0',
-      onPress: callback => () => {
-        callback?.(Operand.DIGITAL, 0);
-      },
-      id: '0',
-      operand: Operand.DIGITAL,
+      ...digit(0),
       containerStyle: {
         width: '50%',
         flex: 0,
@@ -178,27 +73,23 @@ const data: Array<Array<Key>> = [
     },
     {
       label: '.',
-      onPress: callback => () => {
-        callback?.(Operand.DOT, '.');
-      },
       id: '.',
+      value: '.',
+      operand: Operand.DOT,
       containerStyle: { flex: 1 },
       textStyle: { fontSize: 65 },
-      operand: Operand.DOT,
     },
     {
       label: '=',
-      onPress: callback => () => {
-        callback?.(Operand.EQUAL);
-      },
       id: '=',
+      operand: Operand.EQUAL,
       textStyle: { color: colors.white, fontSize: 65 },
+      ...orangeStyle,
       containerStyle: {
         backgroundColor: colors.calculatorOrange,
         width: '25%',
         flex: 0,
       },
-      operand: Operand.EQUAL,
     },
   ],
 ];
@@ -209,31 +100,99 @@ export const Calculator = () => {
     operand: Operand;
     value: string | null | undefined | number;
   }>({ operand: Operand.NONE, value: '' });
-  const fixPrecision = useCallback((calculation: number) => {
-    if (!isFinite(calculation)) return 'NaN';
-    let finalResult;
-    if (
-      Math.abs(calculation) > 1e15 ||
-      (Math.abs(calculation) < 1e-7 && calculation !== 0)
-    ) {
-      finalResult = calculation.toPrecision(10).replace(/\.?0+e/, 'e');
-    } else {
-      finalResult = Number(Math.round(calculation * 1e12) / 1e12).toString();
-    }
-    return finalResult;
-  }, []);
-  const evaluateResult = useCallback(
-    (result: string | null | undefined) => {
-      let calculation;
-      try {
-        const raw = new Function(`return ${result}`)();
-        calculation = Number(raw);
-      } catch {
-        return result;
+  const handlePress = useCallback(
+    (operand: Operand, value?: string | number) => () => {
+      switch (operand) {
+        case Operand.DIGITAL:
+          setDisplayText(oldValue => {
+            return `${oldValue === '0' ? '' : oldValue}${value}`;
+          });
+          break;
+        case Operand.MULTIPLE:
+        case Operand.DIVIDE:
+        case Operand.MINUS:
+        case Operand.PLUS:
+          setDisplayText(oldValue => {
+            if (
+              [
+                Operand.MULTIPLE,
+                Operand.DIVIDE,
+                Operand.MINUS,
+                Operand.PLUS,
+              ].includes(lastToken.operand)
+            )
+              return oldValue;
+            return `${oldValue === '0' ? '' : oldValue}${value}`;
+          });
+          break;
+        case Operand.PERCENT:
+          setDisplayText(oldValue => {
+            const lastNumberMatch = oldValue.match(/(\d+[.]?\d*)$/);
+            if (!lastNumberMatch) {
+              return oldValue;
+            }
+            const fullMatch = lastNumberMatch[0];
+            const numberValue = parseFloat(fullMatch);
+            const percentValue = fixPrecision(numberValue / 100);
+            return oldValue.slice(0, lastNumberMatch.index) + percentValue;
+          });
+          break;
+        case Operand.EQUAL:
+          setDisplayText(oldValue => {
+            let result = oldValue;
+            const tailRegex = /[+\-*/%.\s]+$/;
+            result = result.replace(tailRegex, '');
+            result = result.replace(trailingOperatorRegex, '');
+            mathOperation.forEach(op => {
+              const escaped = op.value.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+              const regex = new RegExp(escaped, 'g');
+              result = result.replace(regex, op.mathOperationSymbol);
+            });
+            return evaluateExpression(result);
+          });
+          break;
+        case Operand.DOT:
+          setDisplayText(oldValue => {
+            return canAddDot(oldValue) ? `${oldValue}${value}` : oldValue;
+          });
+          break;
+        case Operand.PLUS_AND_MINUS:
+          setDisplayText(oldValue => {
+            const match = oldValue.match(/([0-9.]+)$/);
+            if (!match) return oldValue;
+            const numberIndex = match.index;
+            const lastNumber = oldValue.slice(numberIndex);
+            let prefix = oldValue.slice(0, numberIndex);
+            if (prefix === '') {
+              return `-${lastNumber}`;
+            }
+            const lastChar = prefix[prefix.length - 1];
+            if (lastChar === '-') {
+              const beforeLastChar = prefix[prefix.length - 2];
+              if (!beforeLastChar || /[+*/(]/.test(beforeLastChar)) {
+                return prefix.slice(0, -1) + lastNumber;
+              }
+              return prefix.slice(0, -1) + '+' + lastNumber;
+            }
+            if (lastChar === '+') {
+              return prefix.slice(0, -1) + '-' + lastNumber;
+            }
+            return `${prefix}-${lastNumber}`;
+          });
+          break;
+        case Operand.CLEAN:
+          setDisplayText(oldValue => {
+            const newValue = oldValue.slice(0, -1);
+            if (operatorChars.includes(newValue)) {
+              return '0';
+            }
+            return newValue || '0';
+          });
+          break;
       }
-      return fixPrecision(calculation);
+      setLastToken({ operand, value });
     },
-    [fixPrecision],
+    [lastToken.operand],
   );
   return (
     <View style={styles.container}>
@@ -256,111 +215,9 @@ export const Calculator = () => {
                 label={item2.label}
                 textStyle={item2?.textStyle}
                 containerStyle={item2.containerStyle}
-                onPress={item2.onPress?.((operand, value) => {
-                  switch (operand) {
-                    case Operand.DIGITAL:
-                      setDisplayText(oldValue => {
-                        return `${oldValue === '0' ? '' : oldValue}${value}`;
-                      });
-                      break;
-                    case Operand.MULTIPLE:
-                    case Operand.DIVIDE:
-                    case Operand.MINUS:
-                    case Operand.PLUS:
-                      setDisplayText(oldValue => {
-                        if (
-                          [
-                            Operand.MULTIPLE,
-                            Operand.DIVIDE,
-                            Operand.MINUS,
-                            Operand.PLUS,
-                          ].includes(lastToken.operand)
-                        )
-                          return oldValue;
-                        return `${oldValue === '0' ? '' : oldValue}${value}`;
-                      });
-                      break;
-                    case Operand.PERCENT:
-                      setDisplayText(oldValue => {
-                        const lastNumberMatch = oldValue.match(/(\d+[.]?\d*)$/);
-                        if (!lastNumberMatch) {
-                          return oldValue;
-                        }
-                        const fullMatch = lastNumberMatch[0];
-                        const numberValue = parseFloat(fullMatch);
-                        const percentValue = fixPrecision(numberValue / 100);
-                        return (
-                          oldValue.slice(0, lastNumberMatch.index) +
-                          percentValue
-                        );
-                      });
-                      break;
-                    case Operand.EQUAL:
-                      setDisplayText(oldValue => {
-                        let result = oldValue;
-                        const tailRegex = /[+\-*/%.\s]+$/;
-                        result = result.replace(tailRegex, '');
-                        result = result.replace(trailingOperatorRegex, '');
-                        mathOperation.forEach(op => {
-                          const escaped = op.value.replace(
-                            /[.*+?^${}()|[\]\\]/g,
-                            '\\$&',
-                          );
-                          const regex = new RegExp(escaped, 'g');
-                          result = result.replace(
-                            regex,
-                            op.mathOperationSymbol,
-                          );
-                        });
-                        return evaluateResult(result);
-                      });
-                      break;
-                    case Operand.DOT:
-                      setDisplayText(oldValue => {
-                        return canAddDot(oldValue)
-                          ? `${oldValue}${value}`
-                          : oldValue;
-                      });
-                      break;
-                    case Operand.PLUS_AND_MINUS:
-                      setDisplayText(oldValue => {
-                        const match = oldValue.match(/([0-9.]+)$/);
-                        if (!match) return oldValue;
-                        const numberIndex = match.index;
-                        const lastNumber = oldValue.slice(numberIndex);
-                        let prefix = oldValue.slice(0, numberIndex);
-                        if (prefix === '') {
-                          return `-${lastNumber}`;
-                        }
-                        const lastChar = prefix[prefix.length - 1];
-                        if (lastChar === '-') {
-                          const beforeLastChar = prefix[prefix.length - 2];
-                          if (
-                            !beforeLastChar ||
-                            /[+*/(]/.test(beforeLastChar)
-                          ) {
-                            return prefix.slice(0, -1) + lastNumber;
-                          }
-                          return prefix.slice(0, -1) + '+' + lastNumber;
-                        }
-                        if (lastChar === '+') {
-                          return prefix.slice(0, -1) + '-' + lastNumber;
-                        }
-                        return `${prefix}-${lastNumber}`;
-                      });
-                      break;
-                    case Operand.CLEAN:
-                      setDisplayText(oldValue => {
-                        const newValue = oldValue.slice(0, -1);
-                        if (operatorChars.includes(newValue)) {
-                          return '0';
-                        }
-                        return newValue || '0';
-                      });
-                      break;
-                  }
-                  setLastToken({ operand, value });
-                })}
+                gradientColorCenter={item2.gradientColorCenter}
+                gradientColorEdge={item2.gradientColorEdge}
+                onPress={handlePress(item2.operand, item2.value)}
               />
             ))}
           </View>
@@ -381,7 +238,6 @@ const styles = StyleSheet.create({
   resultText: wrapCustomFont({
     fontSize: 100,
     fontWeight: '100',
-    fontFamily: 'System',
     color: colors.white,
   }),
   buttonHolder: {
