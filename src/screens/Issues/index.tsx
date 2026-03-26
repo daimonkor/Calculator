@@ -71,7 +71,18 @@ function mutateArray(a) {
         return { [item?.[0]]: item[1] };
       })
       ?.reduce((accumulator2, current2) => {
-        return { ...accumulator2, ...current2 };
+        const totalSomeArray =
+          current2?.some_array?.reduce(
+            (accumulator3, current3) => accumulator3 + current3,
+            0,
+          ) ?? -1;
+        return {
+          ...accumulator2,
+          ...current2,
+          ...(totalSomeArray >= 0
+            ? { some_total: totalSomeArray, some_array: undefined }
+            : {}),
+        };
       }, {});
     return [...accumulator, newCurrent];
   }, []);
