@@ -1,7 +1,5 @@
-import { Animated, StyleSheet, View } from 'react-native';
+import { ScrollView, StyleSheet, View } from 'react-native';
 import { Header, Text } from '../../components';
-import { useState } from 'react';
-import ScrollView = Animated.ScrollView;
 import { colors } from '../../theme/colors.ts';
 
 var arr = [
@@ -87,11 +85,17 @@ function mutateArray(a) {
         }, {});
       return [...accumulator, newCurrent];
     }, [])
-    ?.filter(item => item?.guest_type === 'guest');
+    ?.filter(item => item?.guest_type === 'guest')
+    ?.sort(
+      (a, b) =>
+        a.last_name.localeCompare(b.last_name) ||
+        a.first_name.localeCompare(b.first_name),
+    );
 }
 
+const data = JSON.stringify(mutateArray(arr), null, 2);
+
 export const Issues = () => {
-  const [text] = useState(JSON.stringify(mutateArray(arr), null, 2));
   return (
     <ScrollView
       style={{ flex: 1 }}
@@ -100,7 +104,7 @@ export const Issues = () => {
     >
       <View style={styles.container}>
         <Header />
-        <Text style={{ color: colors.white }}>{text}</Text>
+        <Text style={{ color: colors.white }}>{data}</Text>
       </View>
     </ScrollView>
   );
