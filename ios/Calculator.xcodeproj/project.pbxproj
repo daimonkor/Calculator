@@ -7,23 +7,39 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0907D7728F0F45F297B1EAAA /* Arimo-Italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0F85AD78B86D4B7AB603D5C3 /* Arimo-Italic.ttf */; };
 		0C80B921A6F3F58F76C31292 /* libPods-Calculator.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5DCACB8F33CDC322A6C60F78 /* libPods-Calculator.a */; };
+		10BB838E8CDC488196E7A440 /* Arimo-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6058986E6B3D41A98B21D7EE /* Arimo-SemiBold.ttf */; };
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
+		284EFDECF791427D884CEBFB /* Arimo-SemiBoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 25A6157ABAC14B78A10FC1AA /* Arimo-SemiBoldItalic.ttf */; };
+		2B5E783B155446D89F262DFB /* Arimo-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 4A8DB48CBAC84B2E8A468077 /* Arimo-Bold.ttf */; };
+		377CC403BEC849599B52115B /* Arimo-MediumItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6E05AEE807ED4F1FAD78D0A7 /* Arimo-MediumItalic.ttf */; };
+		3F16FB871DAF443FB06E2635 /* Arimo-BoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 024D1E0142194B8898A110C6 /* Arimo-BoldItalic.ttf */; };
 		761780ED2CA45674006654EE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 761780EC2CA45674006654EE /* AppDelegate.swift */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
+		8E77F7630F67441D9A31D2CF /* Arimo-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E3CF395A5D534283A92DDB88 /* Arimo-Medium.ttf */; };
 		AD7AB3D40EE5FE014A90FC2F /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB81A68108700A75B9A /* PrivacyInfo.xcprivacy */; };
+		D0A57E0E1B4140A298BCF43A /* Arimo-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 81608465646A4DF8A5E2E7AC /* Arimo-Regular.ttf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		024D1E0142194B8898A110C6 /* Arimo-BoldItalic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "Arimo-BoldItalic.ttf"; path = "../assets/fonts/Arimo-BoldItalic.ttf"; sourceTree = "<group>"; };
+		0F85AD78B86D4B7AB603D5C3 /* Arimo-Italic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "Arimo-Italic.ttf"; path = "../assets/fonts/Arimo-Italic.ttf"; sourceTree = "<group>"; };
 		13B07F961A680F5B00A75B9A /* Calculator.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Calculator.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		13B07FB51A68108700A75B9A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = Calculator/Images.xcassets; sourceTree = "<group>"; };
 		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = Calculator/Info.plist; sourceTree = "<group>"; };
 		13B07FB81A68108700A75B9A /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = PrivacyInfo.xcprivacy; path = Calculator/PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
+		25A6157ABAC14B78A10FC1AA /* Arimo-SemiBoldItalic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "Arimo-SemiBoldItalic.ttf"; path = "../assets/fonts/Arimo-SemiBoldItalic.ttf"; sourceTree = "<group>"; };
 		3B4392A12AC88292D35C810B /* Pods-Calculator.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Calculator.debug.xcconfig"; path = "Target Support Files/Pods-Calculator/Pods-Calculator.debug.xcconfig"; sourceTree = "<group>"; };
+		4A8DB48CBAC84B2E8A468077 /* Arimo-Bold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "Arimo-Bold.ttf"; path = "../assets/fonts/Arimo-Bold.ttf"; sourceTree = "<group>"; };
 		5709B34CF0A7D63546082F79 /* Pods-Calculator.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Calculator.release.xcconfig"; path = "Target Support Files/Pods-Calculator/Pods-Calculator.release.xcconfig"; sourceTree = "<group>"; };
 		5DCACB8F33CDC322A6C60F78 /* libPods-Calculator.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Calculator.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		6058986E6B3D41A98B21D7EE /* Arimo-SemiBold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "Arimo-SemiBold.ttf"; path = "../assets/fonts/Arimo-SemiBold.ttf"; sourceTree = "<group>"; };
+		6E05AEE807ED4F1FAD78D0A7 /* Arimo-MediumItalic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "Arimo-MediumItalic.ttf"; path = "../assets/fonts/Arimo-MediumItalic.ttf"; sourceTree = "<group>"; };
 		761780EC2CA45674006654EE /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AppDelegate.swift; path = Calculator/AppDelegate.swift; sourceTree = "<group>"; };
+		81608465646A4DF8A5E2E7AC /* Arimo-Regular.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "Arimo-Regular.ttf"; path = "../assets/fonts/Arimo-Regular.ttf"; sourceTree = "<group>"; };
 		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = Calculator/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		E3CF395A5D534283A92DDB88 /* Arimo-Medium.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "Arimo-Medium.ttf"; path = "../assets/fonts/Arimo-Medium.ttf"; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
@@ -75,6 +91,7 @@
 				83CBBA001A601CBA00E9B192 /* Products */,
 				2D16E6871FA4F8E400B85C8A /* Frameworks */,
 				BBD78D7AC51CEA395F1C20DB /* Pods */,
+				9533CE008BDB453F838CED18 /* Resources */,
 			);
 			indentWidth = 2;
 			sourceTree = "<group>";
@@ -87,6 +104,22 @@
 				13B07F961A680F5B00A75B9A /* Calculator.app */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		9533CE008BDB453F838CED18 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				4A8DB48CBAC84B2E8A468077 /* Arimo-Bold.ttf */,
+				0F85AD78B86D4B7AB603D5C3 /* Arimo-Italic.ttf */,
+				81608465646A4DF8A5E2E7AC /* Arimo-Regular.ttf */,
+				25A6157ABAC14B78A10FC1AA /* Arimo-SemiBoldItalic.ttf */,
+				6E05AEE807ED4F1FAD78D0A7 /* Arimo-MediumItalic.ttf */,
+				024D1E0142194B8898A110C6 /* Arimo-BoldItalic.ttf */,
+				E3CF395A5D534283A92DDB88 /* Arimo-Medium.ttf */,
+				6058986E6B3D41A98B21D7EE /* Arimo-SemiBold.ttf */,
+			);
+			name = Resources;
+			path = "";
 			sourceTree = "<group>";
 		};
 		BBD78D7AC51CEA395F1C20DB /* Pods */ = {
@@ -161,6 +194,14 @@
 				81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
 				AD7AB3D40EE5FE014A90FC2F /* PrivacyInfo.xcprivacy in Resources */,
+				2B5E783B155446D89F262DFB /* Arimo-Bold.ttf in Resources */,
+				0907D7728F0F45F297B1EAAA /* Arimo-Italic.ttf in Resources */,
+				D0A57E0E1B4140A298BCF43A /* Arimo-Regular.ttf in Resources */,
+				284EFDECF791427D884CEBFB /* Arimo-SemiBoldItalic.ttf in Resources */,
+				377CC403BEC849599B52115B /* Arimo-MediumItalic.ttf in Resources */,
+				3F16FB871DAF443FB06E2635 /* Arimo-BoldItalic.ttf in Resources */,
+				8E77F7630F67441D9A31D2CF /* Arimo-Medium.ttf in Resources */,
+				10BB838E8CDC488196E7A440 /* Arimo-SemiBold.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
