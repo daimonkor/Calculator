@@ -13,16 +13,13 @@ interface ICalculatorButtonProps {
   label: string;
   textStyle?: TextStyle;
   onPress?: () => void;
-  key: string;
   containerStyle?: ViewStyle;
-  id: string;
 }
 
 export const CalculatorButton: FC<ICalculatorButtonProps> = ({
   label,
   textStyle,
   onPress,
-  id,
   containerStyle,
 }) => {
   const textStyleMod = useMemo(
@@ -37,7 +34,6 @@ export const CalculatorButton: FC<ICalculatorButtonProps> = ({
     <TouchableOpacity
       activeOpacity={0.6}
       onPress={onPress}
-      key={id}
       style={containerStyleMod}
     >
       <Text style={textStyleMod}>{label}</Text>

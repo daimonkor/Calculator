@@ -1,52 +1,17 @@
 import { useCallback, useState } from 'react';
-import { StyleSheet, TextStyle, View, ViewStyle } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import { Header, Text } from '../../components';
+import {
+  CalculatorButton,
+  canAddDot,
+  Key,
+  mathOperation,
+  Operand,
+  operatorChars,
+  trailingOperatorRegex,
+} from './components';
 import { wrapCustomFont } from '../../utils';
 import { colors } from '../../theme/colors.ts';
-import { CalculatorButton } from './components';
-
-export enum Operand {
-  DIGITAL,
-  PLUS,
-  MINUS,
-  DIVIDE,
-  MULTIPLE,
-  PERCENT,
-  CLEAN,
-  EQUAL,
-  DOT,
-  NONE,
-  PLUS_AND_MINUS,
-}
-
-type Key = {
-  label: string;
-  containerStyle?: ViewStyle;
-  value?: string;
-  onPress?: (
-    callback: (operand: Operand, value?: string | number) => void,
-  ) => () => void;
-  id: string;
-  textStyle?: TextStyle;
-  operand: Operand;
-};
-
-const mathOperation = [
-  { operand: Operand.MINUS, value: '-', mathOperationSymbol: '-' },
-  { operand: Operand.PLUS, value: '+', mathOperationSymbol: '+' },
-  { operand: Operand.DIVIDE, value: '÷', mathOperationSymbol: '/' },
-  { operand: Operand.MULTIPLE, value: '×', mathOperationSymbol: '*' },
-];
-const operatorChars = mathOperation.map(op => op.value).join('');
-const escapedOperatorChars = operatorChars.replace(/[-\\^]/g, '\\$&');
-const operatorRegex = new RegExp(`[${escapedOperatorChars}]`);
-const trailingOperatorRegex = new RegExp(`[${escapedOperatorChars}]+$`);
-const canAddDot = (str: string) => {
-  const parts = str.split(operatorRegex);
-  const lastNumber = parts[parts.length - 1];
-  if (lastNumber === '') return true;
-  return !lastNumber.includes('.');
-};
 
 const data: Array<Array<Key>> = [
   [
@@ -287,9 +252,9 @@ export const Calculator = () => {
           <View key={index} style={styles.buttonRowHolder}>
             {item?.map(item2 => (
               <CalculatorButton
+                key={item2.id}
                 label={item2.label}
                 textStyle={item2?.textStyle}
-                key={item2.id}
                 containerStyle={item2.containerStyle}
                 onPress={item2.onPress?.((operand, value) => {
                   switch (operand) {
