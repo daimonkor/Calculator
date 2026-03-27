@@ -132,7 +132,9 @@ export const Calculator = () => {
         case Operand.PERCENT:
           setDisplayText(oldValue => {
             if (isNaN(oldValue)) return '0';
-            const lastNumberMatch = oldValue.match(/(\d+[.]?\d*)$/);
+            const lastNumberMatch = oldValue.match(
+              /(\d+(\.\d+)?([eE][+-]?\d+)?)$/,
+            );
             if (!lastNumberMatch) {
               return oldValue;
             }
@@ -166,7 +168,7 @@ export const Calculator = () => {
         case Operand.PLUS_AND_MINUS:
           setDisplayText(oldValue => {
             if (isNaN(oldValue) || oldValue === '0') return '0';
-            const match = oldValue.match(/([0-9.]+)$/);
+            const match = oldValue.match(/(\d+(\.\d+)?([eE][+-]?\d+)?)$/);
             if (!match) return oldValue;
             const numberIndex = match.index;
             const lastNumber = oldValue.slice(numberIndex);
