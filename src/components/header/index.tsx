@@ -19,6 +19,7 @@ export const Header = () => {
   return (
     <View style={containerStyle}>
       <Icon
+        testID="menu-button"
         name="menu"
         size={30}
         onPress={onPress}

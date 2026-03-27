@@ -214,6 +214,7 @@ export const Calculator = () => {
       <Header />
       <View style={styles.resultContainer}>
         <Text
+          testID="textExpression"
           adjustsFontSizeToFit={true}
           style={styles.resultText}
           numberOfLines={3}
@@ -221,6 +222,7 @@ export const Calculator = () => {
           {!(displayText?.length > 0) ? '0' : displayText}
         </Text>
         <Icon
+          testID="backspace"
           name={'backspace'}
           color={colors.white}
           size={30}
