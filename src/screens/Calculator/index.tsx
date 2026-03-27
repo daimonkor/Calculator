@@ -1,5 +1,6 @@
 import { useCallback, useState } from 'react';
 import { StyleSheet, View } from 'react-native';
+import { Icon } from 'react-native-elements';
 import { Header, Text } from '../../components';
 import {
   CalculatorButton,
@@ -191,20 +192,23 @@ export const Calculator = () => {
           });
           break;
         case Operand.CLEAN:
-          setDisplayText(oldValue => {
-            if (isNaN(oldValue)) return '0';
-            const newValue = oldValue.slice(0, -1);
-            if (operatorChars.includes(newValue)) {
-              return '0';
-            }
-            return newValue || '0';
-          });
+          setDisplayText('0');
           break;
       }
       setLastToken({ operand, value });
     },
-    [lastToken.operand],
+    [lastToken.operand, lastToken.value],
   );
+  const onBackSpace = useCallback(() => {
+    setDisplayText(oldValue => {
+      if (isNaN(oldValue)) return '0';
+      const newValue = oldValue.slice(0, -1);
+      if (operatorChars.includes(newValue)) {
+        return '0';
+      }
+      return newValue || '0';
+    });
+  }, []);
   return (
     <View style={styles.container}>
       <Header />
@@ -216,6 +220,12 @@ export const Calculator = () => {
         >
           {!(displayText?.length > 0) ? '0' : displayText}
         </Text>
+        <Icon
+          name={'backspace'}
+          color={colors.white}
+          size={30}
+          onPress={onBackSpace}
+        />
       </View>
       <View style={styles.buttonHolder}>
         {data?.map((item, index) => (
@@ -244,7 +254,7 @@ const styles = StyleSheet.create({
     flex: 0.3,
     justifyContent: 'flex-end',
     alignItems: 'flex-end',
-    padding: 10,
+    padding: 15,
   },
   resultText: wrapCustomFont({
     fontSize: 100,

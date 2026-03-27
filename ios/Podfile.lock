@@ -1856,7 +1856,7 @@ PODS:
     - React-utils (= 0.84.1)
     - ReactNativeDependencies
   - ReactNativeDependencies (0.84.1)
-  - RNGestureHandler (2.30.0):
+  - RNGestureHandler (2.30.1):
     - hermes-engine
     - RCTRequired
     - RCTTypeSafety
@@ -1878,32 +1878,7 @@ PODS:
     - ReactCommon/turbomodule/core
     - ReactNativeDependencies
     - Yoga
-  - RNReanimated (4.2.3):
-    - hermes-engine
-    - RCTRequired
-    - RCTTypeSafety
-    - React-Core
-    - React-Core-prebuilt
-    - React-debug
-    - React-Fabric
-    - React-featureflags
-    - React-graphics
-    - React-hermes
-    - React-ImageManager
-    - React-jsi
-    - React-NativeModulesApple
-    - React-RCTFabric
-    - React-renderercss
-    - React-rendererdebug
-    - React-utils
-    - ReactCodegen
-    - ReactCommon/turbomodule/bridging
-    - ReactCommon/turbomodule/core
-    - ReactNativeDependencies
-    - RNReanimated/reanimated (= 4.2.3)
-    - RNWorklets
-    - Yoga
-  - RNReanimated/reanimated (4.2.3):
+  - RNReanimated (4.3.0):
     - hermes-engine
     - RCTRequired
     - RCTTypeSafety
@@ -1925,10 +1900,35 @@ PODS:
     - ReactCommon/turbomodule/bridging
     - ReactCommon/turbomodule/core
     - ReactNativeDependencies
-    - RNReanimated/reanimated/apple (= 4.2.3)
+    - RNReanimated/apple (= 4.3.0)
+    - RNReanimated/common (= 4.3.0)
     - RNWorklets
     - Yoga
-  - RNReanimated/reanimated/apple (4.2.3):
+  - RNReanimated/apple (4.3.0):
+    - hermes-engine
+    - RCTRequired
+    - RCTTypeSafety
+    - React-Core
+    - React-Core-prebuilt
+    - React-debug
+    - React-Fabric
+    - React-featureflags
+    - React-graphics
+    - React-hermes
+    - React-ImageManager
+    - React-jsi
+    - React-NativeModulesApple
+    - React-RCTFabric
+    - React-renderercss
+    - React-rendererdebug
+    - React-utils
+    - ReactCodegen
+    - ReactCommon/turbomodule/bridging
+    - ReactCommon/turbomodule/core
+    - ReactNativeDependencies
+    - RNWorklets
+    - Yoga
+  - RNReanimated/common (4.3.0):
     - hermes-engine
     - RCTRequired
     - RCTTypeSafety
@@ -2463,8 +2463,8 @@ SPEC CHECKSUMS:
   ReactCodegen: 797de5178718324c6eba3327b07f9a423fbd5787
   ReactCommon: 07572bf9e687c8a52fbe4a3641e9e3a1a477c78e
   ReactNativeDependencies: ad3f943b5d3d9da96ac21222cfff6bc3257027a1
-  RNGestureHandler: 07de6f059e0ee5744ae9a56feb07ee345338cc31
-  RNReanimated: b18b23348b299d0f0b9bf9fc2688f6b4cff40152
+  RNGestureHandler: 695faf9c1f0aa1a6d52ab778e459a1bcbae3153b
+  RNReanimated: 923eb30d50cea473eed734767d4c33c374fae5fc
   RNScreens: 6cb648bdad8fe9bee9259fe144df95b6d1d5b707
   RNSVG: c69f7709226108f5eb89b5aa8833c17a36345468
   RNVectorIcons: 4351544f100d4f12cac156a7c13399e60bab3e26

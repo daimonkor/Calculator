@@ -10,7 +10,7 @@
     "start": "react-native start",
     "test": "jest",
     "pod-refresh": "cd ios && pod cache clean --all && RCT_NEW_ARCH_ENABLED=1 pod install --repo-update",
-    "postinstall": "patch-package && npx react-native-asset &&  npm run pod-refresh --verbose"
+    "postinstall": "npx react-native-asset &&  yarn run pod-refresh --verbose"
   },
   "dependencies": {
     "@react-native/new-app-screen": "0.84.1",
