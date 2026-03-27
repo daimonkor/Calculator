@@ -2,6 +2,7 @@ apply plugin: "com.android.application"
 apply plugin: "org.jetbrains.kotlin.android"
 apply plugin: "com.facebook.react"
 apply from: file("../../node_modules/react-native-vector-icons/fonts.gradle")
+import java.text.SimpleDateFormat
 
 /**
  * This is the configuration block to customize your React Native Android app.
@@ -106,6 +107,28 @@ android {
             proguardFiles getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro"
         }
     }
+     applicationVariants.all { variant ->
+            if (variant.buildType.name != "release") return
+            def envName = "prod"
+            variant.outputs.all { output ->
+                def outputDir = output.outputFile.parentFile
+                def date = new Date()
+                def df = new SimpleDateFormat("ddMMYYYY")
+                def day = df.format(date)
+                def existing = outputDir.listFiles()?.findAll {
+                    it.name ==~ /app-${envName} \(${day}_\d{2}\)\.apk/
+                } ?: []
+                def nextIndex = 1
+                if (!existing.isEmpty()) {
+                    def numbers = existing.collect {
+                        (it.name =~ /_(\d{2})\)/)[0][1].toInteger()
+                    }
+                    nextIndex = numbers.max() + 1
+                }
+                def indexStr = String.format("%02d", nextIndex)
+                outputFileName = "app-${envName} (${day}_${indexStr}).apk"
+            }
+        }
 }
 
 dependencies {

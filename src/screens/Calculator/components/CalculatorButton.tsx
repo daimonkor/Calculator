@@ -6,10 +6,10 @@ import {
   TouchableOpacity,
   ViewStyle,
 } from 'react-native';
+import Svg, { Defs, RadialGradient, Rect, Stop } from 'react-native-svg';
 import { Text } from '../../../components';
 import { wrapCustomFont } from '../../../utils';
 import { colors } from '../../../theme/colors.ts';
-import Svg, { Defs, RadialGradient, Rect, Stop } from 'react-native-svg';
 
 interface ICalculatorButtonProps {
   label: string;
